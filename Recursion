@@ -1,0 +1,70 @@
+Recurion
+
+What is Recurion?
+- A process (a function in our case) that calls itself!
+- There has to be one endpoint, though! Else, it will be an infinite loop :(
+
+It's everywhere
+- JSON.parse / JSON.stringify (Written recursively!)
+- document.getElementById and DOM traversal algo
+- Object traversal
+
+Sometimes it's a cleaner way of iteration!!!
+
+But first, let's discuss functions
+
+In almost, all programming languages, there's a built in DS that manages what happens when function 
+are invoked
+It's named the Call Stack!
+It's a Stack DS 
+Function call -> Push to call stack on the top
+When JS sees, return keyword or when function ends, the compiler will Pop from the Top
+
+We're used to functions being pushed on the call stack and popped off when they're done
+When we're using recursive functions, we keep pushing new functions onto the call stack, the same function
+
+How does recursive function work?
+You invoke the same function with different input until you reach your base case!
+
+Base case - the condition where recursion stops!
+
+Hence, 2 essentials for Recursion - 1. Base case  2. different Input
+
+function countDown(num){
+  // Edge case
+  if(!num){
+    return;
+  }
+  
+  // Base case   
+  if(num <= 0){
+    console.log("All done!")
+    return;
+  }
+
+  console.log(num);
+  num--;
+  // function calling itself;   
+  countDown(num);
+}
+
+countDown(5);
+
+You can easily implement the countDown function w/o using recusion, just by a vanilla for loop!
+
+Now the most classic introductory hello world problem of recusion, factorial!
+
+function factorial(num){
+  if(num <= 1) return 1;
+  return num * factorial(num - 1);
+}
+
+factorial(3);
+
+Recursion common pitfalls - recusion falling to infinite loop
+1. Base case can go wrong
+2. Forgeting to return;
+2. different input can go wrong.
+3. Both of these pitfalls are easy to debug if the code is smaller, hard to debug if codebase is large!
+
+Helper Method Recursion
