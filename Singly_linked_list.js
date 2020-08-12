@@ -72,6 +72,34 @@ class SinglyLinkedList {
     return newNode;
   }
 
+  get(index){
+    if(index < 0 || index >= this.length) return undefined;
+
+    let currentNode = this.head;
+    for(let i=0; i < index; i++){
+      currentNode = currentNode.next;
+    }
+
+    return currentNode;
+  }
+
+  reverse(){
+    let current = this.head;
+    this.head = this.tail;
+    this.tail = current;
+    let prev, next = null;
+
+    // Hello -> There -> How -> are -> you
+    while(current !== null){
+      next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    }
+
+    return this;
+  }
+
   traverse(){
     let currentNode = this.head;
     while(currentNode){
@@ -85,4 +113,8 @@ let list = new SinglyLinkedList();
 list.push("Hello");
 list.push("There!");
 list.push("How");
-console.log('list->', list);
+list.push("are");
+list.push("you");
+// console.log('list->', list);
+console.log(list.reverse());
+
