@@ -3,6 +3,8 @@
     Insertion O(1)
     Removal O(1)
 
+    Stacks can be implemented by using Arrays/Singly linked list
+
     If searching or access -> O(N)
 
     Usecases - 
