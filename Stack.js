@@ -1,3 +1,17 @@
+/* 
+  BIG(O) of stacks ->
+    Insertion O(1)
+    Removal O(1)
+
+    If searching or access -> O(N)
+
+    Usecases - 
+    1. Handle function invocations
+    2. undo/redo
+    3. routing(pages visited)
+    4. Web browser history
+*/
+
 class Node{
   constructor(val){
     this.val = val;
