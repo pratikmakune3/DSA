@@ -1,3 +1,11 @@
+/* 
+  BIG(O) of stacks ->
+    Insertion O(1)
+    Removal O(1)
+
+    If searching or access -> O(N)
+*/
+
 class Node{
   constructor(val){
     this.val = val;
