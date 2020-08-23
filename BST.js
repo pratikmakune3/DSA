@@ -1,3 +1,13 @@
+/* 
+  Big O(n) : For BST
+  Insertion O(log n) 
+  Search O(log n)
+  **** NOT GUARANTEED ****
+  Single Sided BST(Valid, at most 2 children) 
+  which eventually looks like a linked list, Big O : O(n)
+  If that's the case, we should not store the data in BST
+*/
+
 class Node{
   constructor(val) {
     this.val = val;
