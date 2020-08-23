@@ -50,13 +50,36 @@ class BinarySearchTree {
       }
     }
   }
+
+  search(val){
+    console.log('Searching...')
+    if(!this.root) return null;
+
+    let current = this.root;
+    let found = false;
+
+    while(current && !found){
+      if(val === current.val){
+        found = true;
+        return current;
+      } else if(val < current.val){
+        current = current.left;
+      } else {
+        current = current.right;
+      }
+    }
+  }
 }
 
 const tree = new BinarySearchTree();
+
 tree.insert(20);
 tree.insert(13);
 tree.insert(2);
 tree.insert(22);
 tree.insert(21);
 tree.insert(27);
-console.log(JSON.stringify(tree));
+console.log('tree-->',JSON.stringify(tree));
+console.log(tree.search(21));
+console.log(tree.search(13));
+console.log(tree.search(100));
