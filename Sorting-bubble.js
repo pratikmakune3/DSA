@@ -1,5 +1,6 @@
 function bubbleSort(arr){
   for(let i=0; i<arr.length; i++){
+    // Optimisation: if array is already sorted!
     let isSwapped = false;
     for(let j=0; j<arr.length-i; j++){
       if(arr[j]>arr[j+1]){
@@ -11,10 +12,7 @@ function bubbleSort(arr){
         isSwapped = true;
       }
     }
-    if(!isSwapped){
-      console.log('isSwapped false')
-      break;
-    } 
+    if(!isSwapped) break;
   }
   return arr;
 }
