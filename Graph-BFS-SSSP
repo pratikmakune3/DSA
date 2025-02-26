@@ -1,0 +1,47 @@
+const nodes = 5 //(1 indexed)
+const graph = [
+    [1,2],
+    [2,3],
+    [3,4],
+    [4,1]
+]
+
+const bfs = (adjList, src, distance) => {
+    let q = []
+    let visited = new Map()
+
+    visited.set(src, true)
+    distance.set(src, 0)
+    q.push(src)
+
+    while(q.length) {
+        let curr = q.shift()
+        let currDist = distance.get(curr)
+
+        for(let eachAdj of adjList.get(curr)) {
+            if(!visited.has(eachAdj)) {
+                visited.set(eachAdj, true)
+                distance.set(eachAdj, currDist + 1)
+                q.push(eachAdj)
+            }
+        }
+    }
+}
+
+const traverseGraphBFS = () => {
+    let adjList = new Map()
+    let distance = new Map()
+    for(let i=1; i<=nodes; i++) {
+        adjList.set(i, [])
+        distance.set(i, 1001)
+    }
+
+    for(let [u, v] of graph) {
+        adjList.get(u).push(v)
+        adjList.get(v).push(u)
+    }
+
+    bfs(adjList, 1, distance)
+}
+
+traverseGraphBFS()
