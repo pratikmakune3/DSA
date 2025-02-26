@@ -9,7 +9,7 @@ const graph = [
 const bfs = (adjList, src, distance) => {
     let q = []
     let visited = new Map()
-
+    // think of these 3 steps as coupled… visited, distance and q mein push kar do
     visited.set(src, true)
     distance.set(src, 0)
     q.push(src)
@@ -20,6 +20,8 @@ const bfs = (adjList, src, distance) => {
 
         for(let eachAdj of adjList.get(curr)) {
             if(!visited.has(eachAdj)) {
+                
+                // think of these 3 steps as coupled… visited, distance and q mein push kar do
                 visited.set(eachAdj, true)
                 distance.set(eachAdj, currDist + 1)
                 q.push(eachAdj)
