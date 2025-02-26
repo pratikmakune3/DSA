@@ -1,0 +1,73 @@
+// Number of islands in a matrix
+
+const graphMatrix = [
+    [0,1,1,0],
+    [0,1,1,0],
+    [0,0,1,0],
+    [0,0,0,0],
+    [1,1,0,1],
+]
+
+let visited = [
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0],
+]
+const isValid = ([x, y], graphMatrix: number[][]) => {
+    if(x >= 0 && x<graphMatrix.length && 
+        y>=0 && y<graphMatrix[0].length && 
+        graphMatrix[x][y] !== 0 && 
+        visited[x][y] === 0
+    ) {
+        return true
+    }
+    return false
+}
+const neighbours = (graphMatrix: number[][], src: number[]) => {
+    let neigh = [
+        [-1,-1],
+        [-1,0],
+        [-1,1],
+        [0,-1],
+        [0,1],
+        [1,-1],
+        [1,0],
+        [1,1]
+    ]
+    let validNeighs = []
+    for(let [dx, dy] of neigh) {
+        if(isValid([src[0]+dx, src[1]+dy], graphMatrix)) {
+            validNeighs.push([src[0]+dx, src[1]+dy])
+        }
+    }
+    return validNeighs
+}
+
+const bfs = (graphMatrix: number[][], visited: number[][], src: number[]) => {
+    let q = []
+    
+    visited[src[0]][src[1]] = 1
+    q.push(src)
+
+    while(q.length) {
+        let curr = q.shift()
+        for(let eachAdj of neighbours(graphMatrix, curr)) {
+            visited[eachAdj[0]][eachAdj[1]] = 1
+            q.push(eachAdj)
+        }
+    }
+}
+
+let result = 0
+for(let i=0; i<graphMatrix.length; i++) {
+    for(let j=0; j<graphMatrix[i].length; j++) {
+        if(graphMatrix[i][j] === 1 && visited[i][j] === 0) {
+            result++
+            bfs(graphMatrix, visited, [i, j])
+        }
+    }
+}
+
+console.log(result)
