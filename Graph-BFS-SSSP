@@ -1,3 +1,5 @@
+// BFS correctly calculates shortest path to all the nodes from src (unweighted / weight = 1)
+
 const nodes = 5 //(1 indexed)
 const graph = [
     [1,2],
