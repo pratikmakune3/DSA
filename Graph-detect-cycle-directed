@@ -1,0 +1,56 @@
+// Detect a cycle in directed graph using DFS
+
+const dfs = (src: number, adjList: Map<number, number[]>, visited: Map<number, boolean>, pathVisited: Map<number, boolean>) => {
+    visited.set(src, true) 
+    pathVisited.set(src, true)
+
+    for(let adj of adjList.get(src) || []) {
+        if(!visited.get(adj)) {         
+            if(dfs(adj, adjList, visited, pathVisited)) {
+                return true
+            }
+        }
+
+        else if(pathVisited.get(adj)) {
+            return true
+        }
+    }
+
+    pathVisited.set(src, false)
+    return false
+}
+
+const main = () => {
+    const nodes = 11 // 1 indexed
+    // taking adjList directly
+    let adjList = new Map([
+        [1, [2]],
+        [2, [3,9]],
+        [3, [4]],
+        [4, [5,7]],
+        [5, [6]],
+        [6, [8]],
+        [7, [6]],
+        [9, [10]],
+        [10, [11]],
+        [11, []],
+    ])
+    let visited = new Map()
+    let pathVisited = new Map()
+
+    console.log(adjList)
+
+    // taking care of components
+    for(let i=1; i <= nodes; i++) {
+        if(!visited.get(i)) {
+            if(dfs(i, adjList, visited, pathVisited)) {
+                console.log('cycle detected in directed graph')
+                return
+            }
+        }
+    }
+
+    console.log('cycle is not detected in directed graph')
+}
+
+main()
