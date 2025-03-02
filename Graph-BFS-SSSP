@@ -28,7 +28,7 @@ const main = (
     // build Q
     let Q = []
     
-    // // visited, distance, queue
+    // visited, distance, queue - think of this as coupled logic
     visited.set(src, true)
     distance.set(src, 0) 
     Q.push(src)
@@ -37,6 +37,7 @@ const main = (
         let currNode = Q.shift()
         for(let adj of adjList.get(currNode)) {
             if(visited.get(adj) === false) { // not visited yet
+                // visited, distance, queue - think of this as coupled logic
                 visited.set(adj, true) 
                 let newDistance = distance.get(currNode) + 1
                 distance.set(adj, newDistance)
