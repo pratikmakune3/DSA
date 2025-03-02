@@ -1,51 +1,69 @@
 // BFS correctly calculates shortest path to all the nodes from src (unweighted / weight = 1)
 
-const nodes = 5 //(1 indexed)
-const graph = [
-    [1,2],
-    [2,3],
-    [3,4],
-    [4,1]
-]
-
-const bfs = (adjList, src, distance) => {
-    let q = []
+const buildGraph = (n: number, edges: number[][]) => {
+    let adjList = new Map()
+    let distance = new Map()
     let visited = new Map()
-    // think of these 3 steps as coupled… visited, distance and q mein push kar do
+    for(let i=1; i <= n; i++) {
+        adjList.set(i, [])
+        distance.set(i, Infinity)
+        visited.set(i, false)
+    }
+    for(let [u,v] of edges) {
+        adjList.get(u).push(v)
+        adjList.get(v).push(u) // if un-directed... create bi-directional edges
+    }
+    return [adjList, distance, visited]
+}
+
+const main = (
+    n: number, 
+    edges: number[][], 
+    src: number, 
+) => {
+    // build a graph, distance and visited - delegate this
+    let [adjList, distance, visited] = buildGraph(n, edges)
+    console.log(adjList, distance, visited)
+
+    // build Q
+    let Q = []
+    
+    // // visited, distance, queue
     visited.set(src, true)
-    distance.set(src, 0)
-    q.push(src)
+    distance.set(src, 0) 
+    Q.push(src)
 
-    while(q.length) {
-        let curr = q.shift()
-        let currDist = distance.get(curr)
-
-        for(let eachAdj of adjList.get(curr)) {
-            if(!visited.has(eachAdj)) {
-                
-                // think of these 3 steps as coupled… visited, distance and q mein push kar do
-                visited.set(eachAdj, true)
-                distance.set(eachAdj, currDist + 1)
-                q.push(eachAdj)
+    while(Q.length) {
+        let currNode = Q.shift()
+        for(let adj of adjList.get(currNode)) {
+            if(visited.get(adj) === false) { // not visited yet
+                visited.set(adj, true) 
+                let newDistance = distance.get(currNode) + 1
+                distance.set(adj, newDistance)
+                Q.push(adj)
             }
         }
     }
-}
 
-const traverseGraphBFS = () => {
-    let adjList = new Map()
-    let distance = new Map()
-    for(let i=1; i<=nodes; i++) {
-        adjList.set(i, [])
-        distance.set(i, 1001)
-    }
+    console.log(distance)
+    return distance
+}   
 
-    for(let [u, v] of graph) {
-        adjList.get(u).push(v)
-        adjList.get(v).push(u)
-    }
-
-    bfs(adjList, 1, distance)
-}
-
-traverseGraphBFS()
+main(
+    11,
+    [
+        [1,2],
+        [2,3],
+        [2,6],
+        [3,4],
+        [4,5],
+        [5,6],
+        [4,7],
+        [7,8],
+        [8,9],
+        [8,10],
+        [9,10],
+        [9,11],
+    ],
+    1
+)
