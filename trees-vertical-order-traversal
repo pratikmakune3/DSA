@@ -1,0 +1,41 @@
+// binary tree : Vertical Order Traversal
+class TreeNode {
+    val: number
+    left: TreeNode | null
+    right: TreeNode | null
+    constructor(val: number) {
+        this.val = val
+        this.left = null
+        this.right = null
+    }
+}
+
+const preorder = (root: TreeNode | null, vertical: number, level: number, mp: Map<number, number[]>) => {
+    if(root === null) return
+
+    mp.has(vertical) ? mp.get(vertical)!.push(root.val) : mp.set(vertical, [root.val])
+
+    preorder(root.left, vertical - 1, level++, mp)
+    preorder(root.right, vertical + 1, level++, mp)
+}
+
+const main = () => {
+    // build tree
+    let rootTree = new TreeNode(1)
+    rootTree.left = new TreeNode(2)
+    rootTree.right = new TreeNode(3)
+    rootTree.left.left = new TreeNode(4)
+    rootTree.left.right = new TreeNode(10)
+    rootTree.right.left = new TreeNode(9)
+    rootTree.right.right = new TreeNode(10)
+    rootTree.left.left.right = new TreeNode(5)
+    rootTree.left.left.right.right = new TreeNode(6)
+
+    let mp = new Map()
+
+    preorder(rootTree, 0, 0, mp)
+
+    console.log(mp)
+}
+
+main()
