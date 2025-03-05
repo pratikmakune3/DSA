@@ -1,6 +1,8 @@
 // binary tree : top level view - first node on every vertical line (...-2,-1,0,1,2...) - store first encoutered node for the vertical
 // traversal algo? - recursive won't work for this idea as it goes in depth and hence can provide deeper node as ans for some vertical, not desired outcome
-// hence we'll use level order
+// hence we'll use level order and write to mp only if it's the first node for the vertical
+
+// for bottom view - do level order traversal again and update mp everytime, as opposed to top view approach...
 
 class TreeNode {
     val: number
@@ -19,7 +21,7 @@ const levelOrder = (root: TreeNode | null) => {
     let mp = new Map()
     while(q.length) {
         let [currNode, currVertical] = q.shift() // <- [node, currVertical]
-        if(!mp.has(currVertical)) mp.set(currVertical, currNode.val)
+        if(!mp.has(currVertical)) mp.set(currVertical, currNode.val)           // notice we're writing to mp only if it's the first node for the vertical
         if(currNode.left) q.push([currNode.left, currVertical-1])
         if(currNode.right) q.push([currNode.right, currVertical+1])
     }
