@@ -1,0 +1,45 @@
+// binary tree : top level view - first node on every vertical line (...-2,-1,0,1,2...) - store first encoutered node for the vertical
+// traversal algo? - recursive won't work for this idea as it goes in depth and hence can provide deeper node as ans for some vertical, not desired outcome
+// hence we'll use level order
+
+class TreeNode {
+    val: number
+    left: TreeNode | null
+    right: TreeNode | null
+    constructor(val: number) {
+        this.val = val
+        this.left = null
+        this.right = null
+    }
+}
+
+const levelOrder = (root: TreeNode | null) => {
+    let q = []
+    q.push([root, 0]) // [node, vertical]
+    let mp = new Map()
+    while(q.length) {
+        let [currNode, currVertical] = q.shift() // <- [node, currVertical]
+        if(!mp.has(currVertical)) mp.set(currVertical, currNode.val)
+        if(currNode.left) q.push([currNode.left, currVertical-1])
+        if(currNode.right) q.push([currNode.right, currVertical+1])
+    }
+
+    console.log([...mp].sort((a, b) => a[0] - b[0]).map(e => e[1]))
+}
+
+const main = () => {
+    // build tree
+    let rootTree = new TreeNode(1)
+    rootTree.left = new TreeNode(2)
+    rootTree.right = new TreeNode(3)
+    rootTree.left.left = new TreeNode(4)
+    rootTree.left.right = new TreeNode(10)
+    rootTree.right.left = new TreeNode(9)
+    rootTree.right.right = new TreeNode(11)
+    rootTree.left.left.right = new TreeNode(5)
+    rootTree.left.left.right.right = new TreeNode(6)
+
+    levelOrder(rootTree)
+}
+
+main()
